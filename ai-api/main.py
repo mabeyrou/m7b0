@@ -14,7 +14,7 @@ instrumentator.instrument(app).expose(app)
 logger.remove()
 
 logger.add(
-    f"./logs/{APP_ENV}_backend.log",
+    f"./logs/{APP_ENV}_ai_api.log",
     rotation="10 MB",
     retention="7 days",
     compression="zip",
