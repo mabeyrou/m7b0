@@ -5,7 +5,7 @@ from prometheus_fastapi_instrumentator import Instrumentator
 
 from routes import router
 from config import APP_ENV
-from database import create_db_tables
+from database.engine import create_db_tables
 
 app = FastAPI()
 

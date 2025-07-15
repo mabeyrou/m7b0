@@ -10,6 +10,6 @@ POSTGRES_PASSWORD = getenv("POSTGRES_PASSWORD", "password")
 POSTGRES_DB = getenv("POSTGRES_DB", "appdb")
 POSTGRES_PORT = getenv("POSTGRES_PORT", 5432)
 
-DATABASE_URL = getenv("DATABASE_URL", "sqlite:///./data/app.db")
+DATABASE_URL = getenv("DATABASE_URL", "")
 
 LOG_LEVEL = getenv("LOG_LEVEL", "DEBUG")
