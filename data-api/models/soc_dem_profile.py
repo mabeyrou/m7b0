@@ -7,7 +7,7 @@ from sqlalchemy import (
     func,
 )
 
-from ..database import Base
+from database import Base
 
 
 class SocDemProfile(Base):
