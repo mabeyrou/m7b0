@@ -1,37 +1,41 @@
 ```
-m7b0/                         # Racine du projet
+m7b0/                           # Racine du projet
 │ 
-├── ai-api/                   # Répertoire de l'API de prédiction
-│   ├── training/             # Répertoire des modules d'entrainement du modèle
-│   │   ├── train.py          # Script principal pour entraîner le modèle
-│   │   ├── preprocess.py     # Script pour prétraiter/transformer les données
-│   │   ├── evaluate.py       # Évaluer les performances du modèle entraîné
-│   │   └── model.py          # Définition de l'architecture et sauvegarde du modèle
-│   ├── main.py               # Entrypoint de l’API REST pour servir le modèle
-│   ├── model_loader.py       # Charger le modèle entraîné pour la prédiction
-│   ├── requirements.txt      # Dépendances spécifiques à l'API FastAPI
-│   └── Dockerfile            # Image Docker pour conteneuriser l’API de prédiction
+├── ai-api/                     # Répertoire de l'API de prédiction
+│   ├── training/               # Répertoire des modules d'entrainement du modèle
+│   │   ├── train.py            # Script principal pour entraîner le modèle
+│   │   ├── preprocess.py  # Script pour prétraiter/transformer les données
+│   │   ├── evaluate.py         # Évaluer les performances du modèle entraîné
+│   │   └── model.py            # Définition de l'architecture et sauvegarde du modèle
+│   ├── main.py                 # Entrypoint de l’API REST pour servir le modèle
+│   ├── model_loader.py         # Charger le modèle entraîné pour la prédiction
+│   ├── requirements.txt        # Dépendances spécifiques à l'API FastAPI
+│   └── Dockerfile              # Image Docker pour conteneuriser l’API de prédiction
 │
-├── data/                     # Répertoire pour gérer les données du projet
-│   ├── raw/                  # Données brutes non modifiées (CSV initiaux, etc.)
-│   └── processed/            # Données nettoyées et transformées prêtes pour l'entraînement
+├── data/                       # Répertoire pour gérer les données du projet
+│   ├── raw/                    # Données brutes non modifiées (CSV initiaux, etc.)
+│   └── processed/              # Données nettoyées et transformées prêtes pour l'entraînement
 │
-├── notebooks/                # Notebooks Jupyter pour exploration et prototypage
-│
-├── data-api/                 # Microservice pour gérer la base de données et migrations
-│   ├── models/               # Dossier pour les modèles de données SQLAlchemy
-│   │   └── user_schema.py    # Exemple de modèle de données sqlAlchemy pour les utilisateurs
-│   ├── schemas/              # Dossier pour les schémas Pydantic
-│   │   └── user_schema.py    # Exemple de schéma Pydantic pour les utilisateurs
-│   ├── crud/                 # Fonctions CRUD (Create, Read, Update, Delete)
-│   ├── database.py           # Création de la session DB, moteur SQLAlchemy
-│   ├── main.py               # Entrypoint FastAPI pour exposer l’API interne de la BDD
-│   ├── alembic.ini           # Fichier de configuration Alembic
-│   ├── migrations/           # Scripts de migration générés par Alembic
-│   ├── alembic/              # Répertoire pour `env.py` et `versions/` Alembic
-│   ├── requirements.txt      # Dépendances spécifiques au service DB
-│   └── Dockerfile            # Image Docker pour conteneuriser l’API BDD + migrations
-│
+├── data-api/                   # Microservice pour gérer la base de données et migrations
+│   ├── alembic/                # Répertoire pour `env.py` et `versions/` Alembic
+│   ├── crud/                   # Fonctions CRUD (Create, Read, Update, Delete)
+│   │   ├── base.py             # Classe de CRUD de base
+│   │   └── user.py             # Exemple d'instanciation de la classe CRUD de base avec les resources relatives aux user
+│   ├── database/               # Répertoire pour les modules relatifs à la base de données
+│   │   ├── engine.py           # Création de la session DB, moteur SQLAlchemy
+│   │   └── seeder.py           # Script permettant de seeder la base de données à partir des csv stockés dans ./data/processed
+│   ├── models/                 # Répertoire pour les modèles de données SQLAlchemy
+│   │   └── user.py             # Exemple de modèle de données sqlAlchemy pour les utilisateurs
+│   ├── routes/                 # Répertoire pour les routes FastApi
+│   │   ├── base_router.py      # Router de base sur lequel sont construits tous les autres
+│   │   ├── health.py           # Routes de santé de l'API de données
+│   │   └── user.py             # Exemple de routes CRUD basées sur base_router.py pour les utilisateurs
+│   ├── schemas/                # Répertoire pour les schémas Pydantic
+│   │   └── user.py             # Exemple de modèle de données sqlAlchemy pour les utilisateurs
+│   ├── alembic.ini             # Fichier de configuration Alembic
+│   ├── main.py                 # Entrypoint FastAPI pour exposer l’API interne de la BDD
+│   ├── requirements.txt        # Dépendances spécifiques au service DB
+│   └── Dockerfile              # Image Docker pour conteneuriser l’API BDD + migrations
 │
 ├── monitoring/               # Configuration pour le monitoring avec Kuma, Prometheus & Grafana
 │   ├── kuma/                 # Configs spécifiques à Kuma pour collecter des métriques
@@ -47,9 +51,11 @@ m7b0/                         # Racine du projet
 │   │   │   └── datasource.yml # Définition des connexions datasources
 │   └── Dockerfile            # Image Docker pour conteneuriser les services de monitoring
 │
-├── mlruns/                   # Dossier pour stocker les artefacts modèles versionnés via MLflow
+├── mlruns/                   # Répertoire pour stocker les artefacts modèles versionnés via MLflow
 │   ├── model_v1/             # Version 1 du modèle sauvegardée (fichiers MLflow)
 │   └── model_v2/             # Version 2 du modèle (itération améliorée)
+│
+├── notebooks/                # Notebooks Jupyter pour exploration et prototypage
 │
 ├── tests/                    # Tests unitaires et tests end-to-end
 │   ├── test_training.py      # Tests pour vérifier le pipeline d'entraînement

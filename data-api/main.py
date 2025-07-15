@@ -3,11 +3,9 @@ from fastapi import FastAPI
 from loguru import logger
 from prometheus_fastapi_instrumentator import Instrumentator
 
-from routes import router
 from config import APP_ENV
 from database.engine import create_db_tables
-
-app = FastAPI()
+from routes import user, soc_dem_profile, health
 
 
 @asynccontextmanager
@@ -27,7 +25,9 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-app.include_router(router)
+app.include_router(user.router)
+app.include_router(soc_dem_profile.router)
+app.include_router(health.router)
 
 instrumentator = Instrumentator()
 instrumentator.instrument(app).expose(app)
@@ -35,7 +35,7 @@ instrumentator.instrument(app).expose(app)
 logger.remove()
 
 logger.add(
-    f"./logs/{APP_ENV}_backend.log",
+    f"./logs/{APP_ENV}_data_api.log",
     rotation="10 MB",
     retention="7 days",
     compression="zip",
